@@ -10,8 +10,8 @@ import UIKit
 extension UILabel {
     
     @discardableResult
-    func font(_ value: UIFont) -> Self {
-        font = value
+    func font(_ value: Font) -> Self {
+        font = value.fontValue
         return self
     }
     
