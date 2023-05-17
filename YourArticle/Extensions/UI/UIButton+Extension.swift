@@ -16,7 +16,7 @@ extension UIButton {
     }
     
     @discardableResult
-    func font(_ value: UIFont) -> Self {
+    func font(_ value: Font) -> Self {
         titleLabel?.font(value)
         return self
     }
@@ -28,8 +28,8 @@ extension UIButton {
     }
     
     @discardableResult
-    func underline(_ value: Bool) -> Self {
-        setAttributedTitle(NSAttributedString(string: titleLabel?.text ?? "", attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue]), for: .normal)
+    func image(_ value: ImageKeyable?) -> Self {
+        setImage(value?.image, for: .normal)
         return self
     }
     

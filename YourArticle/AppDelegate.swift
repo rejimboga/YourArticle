@@ -17,10 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.overrideUserInterfaceStyle = .light
         
-        let vc = ViewController()
+        let tabBar = BaseTabBarViewController()
         
         if let window = window {
-            window.rootViewController = vc
+            window.rootViewController = tabBar
             window.makeKeyAndVisible()
         }
         return true
