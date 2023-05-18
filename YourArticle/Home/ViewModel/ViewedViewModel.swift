@@ -1,19 +1,19 @@
 //
-//  HomeViewModel.swift
+//  ViewedViewModel.swift
 //  YourArticle
 //
-//  Created by Macbook Air on 14.05.2023.
+//  Created by Macbook Air on 18.05.2023.
 //
 
 import UIKit
 import Combine
 
-final class HomeViewModel: BaseViewModel {
+final class ViewedViewModel: BaseViewModel {
     
     typealias Output = HomeOutput
     
     struct HomeOutput: Outputable {
-        @Variable var articles: [ArticleModel] = []
+        @Variable var articles: [Post] = []
         @Variable var result: ViewModelResult = .none
     }
     
@@ -22,7 +22,7 @@ final class HomeViewModel: BaseViewModel {
     private var articleRepo = ArticleRepo()
     
     init() {
-        fetchArticles()
+        fetchViewedArticles()
     }
     
     func numberOfRows() -> Int {
@@ -31,13 +31,13 @@ final class HomeViewModel: BaseViewModel {
 }
 
 // MARK: - API
-extension HomeViewModel {
+extension ViewedViewModel {
     // MARK: - Articles
-    func fetchArticles() {
+    func fetchViewedArticles() {
         Task { @MainActor in
             do {
                 output.result = .loading
-                output.articles = try await articleRepo.loadArticles()
+                output.articles = try await articleRepo.loadViewedArticles()
                 output.result = .completed
             } catch {
                 output.result = .failure(error: URLs.NetworkError.invalidData)
@@ -47,10 +47,3 @@ extension HomeViewModel {
     }
 }
 
-
-enum ViewModelResult {
-    case failure(error: Error)
-    case loading
-    case completed
-    case none
-}

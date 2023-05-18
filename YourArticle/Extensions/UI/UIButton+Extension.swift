@@ -28,6 +28,12 @@ extension UIButton {
     }
     
     @discardableResult
+    func underline(_ value: Bool) -> Self {
+        setAttributedTitle(NSAttributedString(string: titleLabel?.text ?? "", attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue]), for: .normal)
+        return self
+    }
+    
+    @discardableResult
     func image(_ value: ImageKeyable?) -> Self {
         setImage(value?.image, for: .normal)
         return self
