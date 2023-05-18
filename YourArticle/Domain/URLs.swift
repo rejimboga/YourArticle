@@ -73,13 +73,16 @@ final class URLs {
             }
         }
         
-        enum ErrorImage {
+        enum ErrorURL {
             case errorImage
+            case errorLink
             
             var path: String {
                 switch self {
                 case .errorImage:
                     return "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png"
+                case .errorLink:
+                    return "https://vrgsoft.net"
                 }
             }
         }

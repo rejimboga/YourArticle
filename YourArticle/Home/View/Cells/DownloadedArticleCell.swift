@@ -1,18 +1,17 @@
 //
-//  ArticleCell.swift
+//  DownloadedArticleCell.swift
 //  YourArticle
 //
-//  Created by Macbook Air on 15.05.2023.
+//  Created by Macbook Air on 18.05.2023.
 //
 
 import UIKit
 import SDWebImage
 
-class ArticleCell: UITableViewCell {
+class DownloadedArticleCell: UITableViewCell {
     // MARK: - Identifier
-    static let id = "ArticleCell"
-    private(set) var article: Post?
-
+    static let id = "DownloadedCell"
+    
     // MARK: - UI
     private let cellStack: UIStackView = .init()
         .disableTranslates()
@@ -40,8 +39,7 @@ class ArticleCell: UITableViewCell {
     private let favoriteButton: UIButton = .init()
         .disableTranslates()
         .square(CGFloat(24))
-        .image(UIImage.CommonKey.empty)
-        .addTarget(self, selector: #selector(bookmarkIsTapped(_:)), event: .touchUpInside)
+        .image(UIImage.CommonKey.filled)
     
     private let separator: UIView = .init()
         .disableTranslates()
@@ -55,7 +53,6 @@ class ArticleCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         constraints()
-        configUI()
     }
         
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -90,35 +87,12 @@ class ArticleCell: UITableViewCell {
         ])
     }
     
-    private func configUI() {
-        favoriteButton.setImage(UIImage.CommonKey.filled.image, for: .selected)
-    }
-    
-    // MARK: - Private methods
-    @objc private func bookmarkIsTapped(_ sender: UIButton) {
-        guard let article else { return }
-        viewModel.saveObject(article)
-        UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveLinear, animations: {
-            sender.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-        }) { (success) in
-            UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveLinear, animations: {
-                sender.isSelected = !sender.isSelected
-                sender.transform = .identity
-            }, completion: nil)
-        }
-    }
-    
     // MARK: - Cell configure
-    func configCell(_ value: Post) {
+    func configCell(_ value: Article) {
         titleLabel.text(value.title)
         descriptionTitle.text(value.descriptionTitle)
-        guard let url = URL(string: value.media.first?.mediaMetaData[1].imageUrl ?? URLs.Articles.ErrorURL.errorImage.path)
+        guard let url = URL(string: value.articleImage ?? URLs.Articles.ErrorURL.errorImage.path)
         else { return }
         articleImage.sd_setImage(with: url)
-    }
-    
-    func article(_ article: Post) -> Self {
-        self.article = article
-        return self
     }
 }
